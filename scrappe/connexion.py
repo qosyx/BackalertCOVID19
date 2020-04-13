@@ -15,6 +15,7 @@ def createTables():
                 mbregueris INT, 
                 mbresoustraitement INT, 
                 mbremort INT)''')
+    
 
 def addOfficielle(idOfficielle,mbrecasconfirme,mbregueris,mbresoustraitement,mbremort):
     conn = sqlite3.connect('/home/archange/Documents/Mobile/Alert COVID 19/back-end/covid_base.db')
@@ -30,8 +31,16 @@ def addOfficielle(idOfficielle,mbrecasconfirme,mbregueris,mbresoustraitement,mbr
 def getAll():
     conn = sqlite3.connect('/home/archange/Documents/Mobile/Alert COVID 19/back-end/covid_base.db')
     c = conn.cursor()
-    for row in c.execute('SELECT * from officielle ORDER BY idOfficielle asc'):
-        print (row)
+    c.execute('SELECT * from officielle ORDER BY idOfficielle asc')
+    result = c.fetchall()
+    print(result)
+    # if (c.fetchone() == None):
+    #     print("pas de donnée")
+    # else:
+    #     print (c.fetchone()[0])
+
+    # for row in c.execute('SELECT * from officielle ORDER BY idOfficielle asc'):
+    #     print (row)
     # ,mbregueris,mbresoustraitement,mbremort
 def check(mbrecasconfirme,mbregueris,mbresoustraitement,mbremort):
     conn = sqlite3.connect('/home/archange/Documents/Mobile/Alert COVID 19/back-end/covid_base.db')
@@ -45,10 +54,10 @@ def check(mbrecasconfirme,mbregueris,mbresoustraitement,mbremort):
 
 
 if __name__ == "__main__":
-    # createTables()
-    addOfficielle(1,1,1,1,1)
+    createTables()
+    # addOfficielle(1,1,1,1,1)
 
-    getAll()
+    # getAll()
     # check(35, 5, 1, 29)
 
 

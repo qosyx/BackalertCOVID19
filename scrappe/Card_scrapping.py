@@ -23,6 +23,6 @@ for result in results2:
         continue
     covid_stat.append(result.text.strip())
 print(covid_stat)
-connexion.addOfficielle(id_generate.generateId(),int(covid_stat[0]),covid_stat[1],covid_stat[2],covid_stat[3])
+# connexion.addOfficielle(id_generate.generateId(),int(covid_stat[0]),covid_stat[1],covid_stat[2],covid_stat[3])
 connexion.getAll()
 # print(covid_stat)
