@@ -55,7 +55,16 @@ def getAll():
     c = conn.cursor()
     c.execute('SELECT * from officielle ORDER BY idOfficielle asc')
     result = c.fetchall()
-    print(result)
+    return result
+
+def getOne():
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    c.execute('SELECT * from officielle ORDER BY idOfficielle desc LIMIT 1')
+    result = c.fetchone()
+    return result
+
     # if (c.fetchone() == None):
     #     print("pas de donnée")
     # else:
@@ -78,9 +87,10 @@ def check(mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
 
 
 if __name__ == "__main__":
-    createTables()
+    # createTables()
     # addOfficielle(1,1,1,1,1)
 
-    # getAll()
+    r = getOne()
+    print(r)
     # check(35, 5, 1, 29)
 

@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-import connexion as connexion
+import sys, os
+import connect 
 import id_generate as id_generate 
 import threading
 
@@ -26,9 +27,14 @@ def scrappingAndSave():
         if None in (result):
             continue
         covid_stat.append(result.text.strip())
+    
+    connect.addOfficielle(id_generate.generateId(),int(covid_stat[0]),covid_stat[1],covid_stat[2],covid_stat[3])
+    return covid_stat
+    # connect.getAll()
     # print(covid_stat)
-    connexion.addOfficielle(id_generate.generateId(),int(covid_stat[0]),covid_stat[1],covid_stat[2],covid_stat[3])
-    # connexion.getAll()
-    # print(covid_stat)
+
+def getOne():
+    return connect.getOne()
+    
 if __name__ == "__main__":
     scrappingAndSave()

@@ -6,3 +6,8 @@ import card_scrapping as card_scrapping
 def scrappingAndSave():
     result = card_scrapping.scrappingAndSave()
     return result
+
+def getOne():
+    result = card_scrapping.getOne()
+    print(result[0])
+    return result

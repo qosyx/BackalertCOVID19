@@ -30,7 +30,30 @@ paths:
           description: Successfully to save produit
           schema:
             properties:
-              operationcode:
+              covidstatic:
                 type: string
                 description: 1 for Successfully other for mistake
 
+  /scrap_api/getOne:
+    get:
+      operationId: scrap_api.getOne
+      tags:
+        - scrap_api
+      summary: Get  covid stat
+      description: Get  covid stat
+      responses:
+        201:
+          description: Successfully to get esv template
+          schema:
+            properties:
+              templatedescription:
+                type: string
+                description: esv template description
+              templatename:
+                type: string
+                description: esv template name
+              grouptemplate:
+                type: string
+                description: esv template
+    
+  #
