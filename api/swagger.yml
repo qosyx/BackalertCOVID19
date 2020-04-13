@@ -1,13 +1,13 @@
 swagger: "2.0"
 info:
   description: This swagger described the operation of the APIs 
-  title: Swagger REST LeAirain
+  title: Swagger REST alertCOVID19
   version: "1.0.0"
   contact:
-    email: "jeanbaptiste.gandonou@imsp-uac.org"
+    email: "jeanbaptiste.gandonou@gmail.com | fhoueha@gmail.com"
   license:
-    name: "Institut de Mathématique de Science Physique"
-    url: "contact@imsp-uac.org"
+    name: "Francis Jean-Baptiste Sidoine"
+    url: "contact@gmail.com"
   
 consumes:
   - application/json
