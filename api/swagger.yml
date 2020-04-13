@@ -1,0 +1,36 @@
+swagger: "2.0"
+info:
+  description: This swagger described the operation of the APIs 
+  title: Swagger REST LeAirain
+  version: "1.0.0"
+  contact:
+    email: "jeanbaptiste.gandonou@imsp-uac.org"
+  license:
+    name: "Institut de Mathématique de Science Physique"
+    url: "contact@imsp-uac.org"
+  
+consumes:
+  - application/json
+produces:
+  - application/json
+basePath: /api
+
+# Paths supported by the server application
+paths:
+# scrap_api
+  /scrap_api:
+    post:
+      operationId: scrap_api.scrappingAndSave
+      tags:
+        - scrap_api
+      summary: Save  card information
+      description: Save  card information
+      responses:
+        200:
+          description: Successfully to save produit
+          schema:
+            properties:
+              operationcode:
+                type: string
+                description: 1 for Successfully other for mistake
+

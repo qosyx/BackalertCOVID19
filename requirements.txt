@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+simplejson
+SQLAlchemy
+flask_cors
+openapi-spec-validator==0.2.4
+pandas
+connexion
+Flask
+swagger-ui-bundle==0.0.3
+werkzeug>=0.15.3
