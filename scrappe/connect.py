@@ -33,7 +33,7 @@ def createTablesActualite():
                 actualite TEXT, 
                 id_date TEXT)''')
     
-def addOfficielle(idOfficielle, mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
+def addOfficielle(idOfficielle, mbrecasconfirme, mbregueris, mbremort,mbresoustraitement):
     conn = sqlite3.connect(
         path.getPath())
     c = conn.cursor()
@@ -45,7 +45,10 @@ def addOfficielle(idOfficielle, mbrecasconfirme, mbregueris, mbresoustraitement,
     VALUES (" + str(idOfficielle) + "," + str(mbrecasconfirme) +
                   "," + str(mbregueris) + "," + str(mbresoustraitement) + "," + str(mbremort)+")")
     else:
-        if((mbrecasconfirme == res[1])):
+        if((int(mbrecasconfirme) == int(res[1])) and (int(mbresoustraitement) == int(res[4]))
+            and (int(mbregueris) == int(res[2])) and (int(mbremort) == int(res[3])) 
+           ):
+            print(res)
             print("pas d'évolution ")
         else:
             print("Insertion de donnée ..........")
