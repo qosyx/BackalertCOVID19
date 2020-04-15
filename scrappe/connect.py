@@ -17,7 +17,7 @@ def createTablesOfficielle():
     c = conn.cursor()
     # Create officielle
     c.execute('''CREATE TABLE officielle
-                (idOfficielle INT PRIMARY KEY   NOT NULL,
+                (
                 mbrecasconfirme INT, 
                 mbregueris INT, 
                 mbresoustraitement INT, 
@@ -33,28 +33,28 @@ def createTablesActualite():
                 actualite TEXT, 
                 id_date TEXT)''')
     
-def addOfficielle(idOfficielle, mbrecasconfirme, mbregueris, mbremort,mbresoustraitement):
+def addOfficielle( mbrecasconfirme, mbregueris, mbremort,mbresoustraitement):
     conn = sqlite3.connect(
         path.getPath())
     c = conn.cursor()
-    c.execute('SELECT * from officielle ORDER BY idOfficielle asc')
+    c.execute('SELECT  mbrecasconfirme, mbregueris, mbremort,mbresoustraitement,rowid from officielle ORDER BY rowid asc')
     res = c.fetchone()
     if (res == None):
         print("Insertion de donnée ..........")
-        c.execute("INSERT INTO officielle (idOfficielle,mbrecasconfirme,mbregueris,mbresoustraitement,mbremort) \
-    VALUES (" + str(idOfficielle) + "," + str(mbrecasconfirme) +
+        c.execute("INSERT INTO officielle (mbrecasconfirme,mbregueris,mbresoustraitement,mbremort) \
+    VALUES (" + str(mbrecasconfirme) +
                   "," + str(mbregueris) + "," + str(mbresoustraitement) + "," + str(mbremort)+")")
     else:
-        if((int(mbrecasconfirme) == int(res[1])) and (int(mbresoustraitement) == int(res[4]))
-            and (int(mbregueris) == int(res[2])) and (int(mbremort) == int(res[3])) 
-           ):
-            print(res)
+        if((int(mbrecasconfirme) == int(res[0])) and (int(mbresoustraitement) == int(res[3]))
+            and (int(mbregueris) == int(res[1])) and (int(mbremort) == int(res[2])) 
+           ) :
+            # print(res)
             print("pas d'évolution ")
         else:
             print("Insertion de donnée ..........")
 
-            c.execute("INSERT INTO officielle (idOfficielle,mbrecasconfirme,mbregueris,mbresoustraitement,mbremort) \
-    VALUES (" + str(idOfficielle) + "," + str(mbrecasconfirme) +
+            c.execute("INSERT INTO officielle (mbrecasconfirme,mbregueris,mbresoustraitement,mbremort) \
+    VALUES (" + str(mbrecasconfirme) +
                 "," + str(mbregueris) + "," + str(mbresoustraitement) + "," + str(mbremort)+")")
 
 
@@ -76,7 +76,7 @@ def getAll():
     conn = sqlite3.connect(
         path.getPath())
     c = conn.cursor()
-    c.execute('SELECT * from officielle ORDER BY idOfficielle asc')
+    c.execute('SELECT  mbrecasconfirme, mbregueris, mbremort,mbresoustraitement,rowid from officielle ORDER BY rowid asc')
     result = c.fetchall()
     return result
 
@@ -84,7 +84,7 @@ def getOne():
     conn = sqlite3.connect(
         path.getPath())
     c = conn.cursor()
-    c.execute('SELECT * from officielle ORDER BY idOfficielle desc LIMIT 1')
+    c.execute('SELECT  mbrecasconfirme, mbregueris, mbremort,mbresoustraitement,rowid from officielle ORDER BY rowid desc')
     result = c.fetchone()
     return result
 

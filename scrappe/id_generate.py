@@ -1,5 +1,6 @@
 import uuid 
-  
+import time;
+
 
 def generateId():
     id = uuid.uuid1() 
@@ -13,4 +14,5 @@ def get():
     print(sized_unique_id)
     
 if __name__ == "__main__":
-    get()
+    ts = time.time()
+    print(type(ts))
