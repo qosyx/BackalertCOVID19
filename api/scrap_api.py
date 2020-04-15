@@ -9,5 +9,5 @@ def scrappingAndSave():
 
 def getOne():
     result = card_scrapping.getOne()
-    print(result[0])
+    print(result)
     return result

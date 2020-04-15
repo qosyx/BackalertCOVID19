@@ -37,5 +37,5 @@ def getOne():
     return connect.getOne()
     
 if __name__ == "__main__":
-    scrappingAndSave()
-    # print(connect.getOne())
+    # scrappingAndSave()
+    print(connect.getOne())
