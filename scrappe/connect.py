@@ -11,7 +11,7 @@ def createConnexion():
     return c
 
 
-def createTables():
+def createTablesOfficielle():
     conn = sqlite3.connect(
         path.getPath())
     c = conn.cursor()
@@ -23,7 +23,16 @@ def createTables():
                 mbresoustraitement INT, 
                 mbremort INT)''')
 
-
+def createTablesActualite():
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    # Create officielle
+    c.execute('''CREATE TABLE tableactualite
+                (idactualite INT PRIMARY KEY   NOT NULL,
+                actualite TEXT, 
+                id_date TEXT)''')
+    
 def addOfficielle(idOfficielle, mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
     conn = sqlite3.connect(
         path.getPath())
@@ -49,6 +58,17 @@ def addOfficielle(idOfficielle, mbrecasconfirme, mbregueris, mbresoustraitement,
     conn.commit()
 
 
+def addActualite(idactualite, actualite, id_date):
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    c.execute("INSERT INTO tableactualite  (idactualite,actualite,id_date) \
+    VALUES (" + str(idactualite) + ",'" + str(actualite) +
+    
+                "' ,'" + str(id_date)+"')")
+    conn.commit()
+
+
 def getAll():
     conn = sqlite3.connect(
         path.getPath())
@@ -65,6 +85,13 @@ def getOne():
     result = c.fetchone()
     return result
 
+def getActualite():
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    c.execute('SELECT * from tableactualite')
+    result = c.fetchone()
+    return result
     # if (c.fetchone() == None):
     #     print("pas de donnée")
     # else:
@@ -87,10 +114,13 @@ def check(mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
 
 
 if __name__ == "__main__":
-    # createTables()
-    # addOfficielle(1,1,1,1,1)
+    createTablesActualite()
+    createTablesOfficielle()    
+# addOfficielle(1,1,1,1,1)
 
-    r = getOne()
-    print(r)
+    # r = getOne()
+    # print(r)
     # check(35, 5, 1, 29)
-
+    # addActualite(1,
+    #         "Une délégation gouvernementale conduite par le MS Benjamin HOUNKPATIN est actuellement dans les départements Alibori,Donga,Borgou, Atacora pour effectuer des remises de matériels médicaux.",'14 avril 2020 à 14:20')
+    # print(getActualite())

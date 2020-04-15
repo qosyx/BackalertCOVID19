@@ -8,7 +8,7 @@ def generateId():
 # Representations of uuid1() 
 
 def get():
-    bit_size = 64
+    bit_size = 16
     sized_unique_id = uuid.uuid4().int 
     print(sized_unique_id)
     
