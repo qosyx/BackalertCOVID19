@@ -29,8 +29,7 @@ def createTablesActualite():
     c = conn.cursor()
     # Create officielle
     c.execute('''CREATE TABLE tableactualite
-                (idactualite INT PRIMARY KEY   NOT NULL,
-                actualite TEXT, 
+                (actualite TEXT, 
                 id_date TEXT)''')
     
 def addOfficielle( mbrecasconfirme, mbregueris, mbremort,mbresoustraitement):
@@ -49,7 +48,7 @@ def addOfficielle( mbrecasconfirme, mbregueris, mbremort,mbresoustraitement):
             and (int(mbregueris) == int(res[1])) and (int(mbremort) == int(res[2])) 
            ) :
             # print(res)
-            print("pas d'évolution ")
+            print("pas d'évolution des statistiques ")
         else:
             print("Insertion de donnée ..........")
 
@@ -61,17 +60,59 @@ def addOfficielle( mbrecasconfirme, mbregueris, mbremort,mbresoustraitement):
     conn.commit()
 
 
-def addActualite(idactualite, actualite, id_date):
+def addActualite(actualite, id_date):
     conn = sqlite3.connect(
         path.getPath())
     c = conn.cursor()
-    c.execute("INSERT INTO tableactualite  (idactualite,actualite,id_date) \
-    VALUES (" + str(idactualite) + ",'" + str(actualite) +
+    c.execute("INSERT INTO tableactualite  (actualite,id_date) \
+    VALUES ('" + str(actualite) +
     
                 "' ,'" + str(id_date)+"')")
     conn.commit()
 
 
+
+def addActualite2(actualite, id_date,taille):
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    c.execute('SELECT count(actualite) FROM tableactualite')
+    res = c.fetchone()
+    res = int(res[0])
+    # print(taille)
+    if (int(res) == 0):
+        i = 0
+        while (i<int(taille)):
+            print("Insertion de donnée ..........")
+            # print("Insertion de donnée ..........")
+
+            c.execute("INSERT INTO tableactualite  (actualite,id_date) \
+    VALUES ('" + str(actualite) +
+    
+                "' ,'" + str(id_date)+"')")
+            i = i +1
+    else: 
+        if(int(res)==int(taille)):
+            print("pas d'évolution des statistiques")
+
+        if(( int(res) < int(taille)) ): 
+            taille = taille -res
+            while (taille>0):
+                print("Insertion de donnée ..........")
+                c.execute("INSERT INTO tableactualite  (actualite,id_date) \
+        VALUES ('" + str(actualite) +
+        
+                    "' ,'" + str(id_date)+"')")
+                taille = taille -1
+    conn.commit()
+
+def getCountActualite():
+    conn = sqlite3.connect(path.getPath())
+    c = conn.cursor()
+    c.execute('SELECT count(actualite) FROM tableactualite')
+    res = c.fetchone()
+    res = int(res[0])
+    return res
 def getAll():
     conn = sqlite3.connect(
         path.getPath())
@@ -88,12 +129,12 @@ def getOne():
     result = c.fetchone()
     return result
 
-def getActualite():
+def getAllActualite():
     conn = sqlite3.connect(
         path.getPath())
     c = conn.cursor()
-    c.execute('SELECT * from tableactualite')
-    result = c.fetchone()
+    c.execute('SELECT actualite, id_date, rowid from tableactualite')
+    result = c.fetchall()
     return result
     # if (c.fetchone() == None):
     #     print("pas de donnée")
@@ -105,20 +146,13 @@ def getActualite():
     # ,mbregueris,mbresoustraitement,mbremort
 
 
-def check(mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    for row in c.execute('SELECT * from officielle ORDER BY idOfficielle desc LIMIT 1'):
-        if (row[1] == mbrecasconfirme and row[2] == mbregueris and row[3] == mbresoustraitement and row[4] == mbremort):
-            pass
-        else:
-            print("ok")
+
 
 
 if __name__ == "__main__":
     createTablesActualite()
-    createTablesOfficielle()    
+    createTablesOfficielle() 
+    print(type(getCountActualite()))   
 # addOfficielle(1,1,1,1,1)
 
     # r = getOne()

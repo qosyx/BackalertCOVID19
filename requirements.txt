@@ -1,5 +1,6 @@
 beautifulsoup4
 boto
+arrow
 FileChunkIO
 simplejson
 flask_cors

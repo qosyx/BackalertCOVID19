@@ -57,3 +57,37 @@ paths:
                 description: esv template
     
   #
+# scrap_api
+  /actualite_scrap:
+    post:
+      operationId: actualite_scrap.scrappingActualiteAndSave
+      tags:
+        - actualite_scrap
+      summary: Save  card information
+      description: Save  card information
+      responses:
+        200:
+          description: Successfully to save produit
+          schema:
+            properties:
+              covidstatic:
+                type: string
+                description: 1 for Successfully other for mistake
+
+  /actualite_scrap/getActualite:
+    get:
+      operationId: actualite_scrap.getAllActualite
+      tags:
+        - actualite_scrap
+      summary: Get  covid stat
+      description: Get  covid stat
+      responses:
+        201:
+          description: Successfully to get esv template
+          schema:
+            properties:
+              templatedescription:
+                type: string
+                description: esv template description
+    
+  #
