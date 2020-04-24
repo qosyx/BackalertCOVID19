@@ -10,6 +10,18 @@ def createConnexion():
     c = conn.cursor()
     return c
 
+def createTableMapDb():
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    # Create mapDb
+    c.execute('''CREATE TABLE mapDb
+                (
+                longitude TEXT, 
+                latitude TEXT, 
+                mapdate TEXT, 
+                numeroTel TEXT)''')
+
 
 def createTablesOfficielle():
     conn = sqlite3.connect(
@@ -136,23 +148,36 @@ def getAllActualite():
     c.execute('SELECT actualite, id_date, rowid from tableactualite')
     result = c.fetchall()
     return result
-    # if (c.fetchone() == None):
-    #     print("pas de donnée")
-    # else:
-    #     print (c.fetchone()[0])
 
-    # for row in c.execute('SELECT * from officielle ORDER BY idOfficielle asc'):
-    #     print (row)
-    # ,mbregueris,mbresoustraitement,mbremort
 
+################ add mapbb
+### Add mapDb
+def addMapdb(longitude,latitude,mapdate,numeroTel):
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    c.execute("INSERT INTO mapDb  (longitude,latitude,mapdate,numeroTel) \
+    VALUES ('" + str(longitude) + "' ,'" + str(latitude)+"','" 
+    + str(mapdate)+"','" + str(numeroTel)+"')")
+    conn.commit()
+
+### Read All MapDb
+def getAllMapdb():
+    conn = sqlite3.connect(
+        path.getPath())
+    c = conn.cursor()
+    c.execute('SELECT longitude,latitude,mapdate,numeroTel, rowid from mapDb')
+    result = c.fetchall()
+    return result
 
 
 
 
 if __name__ == "__main__":
-    createTablesActualite()
-    createTablesOfficielle() 
-    print(type(getCountActualite()))   
+    # createTablesActualite()
+    # createTablesOfficielle() 
+    createTableMapDb()
+    # print(type(getCountActualite()))   
 # addOfficielle(1,1,1,1,1)
 
     # r = getOne()

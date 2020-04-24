@@ -57,7 +57,7 @@ paths:
                 description: esv template
     
   #
-# scrap_api
+# actualite_scrap
   /actualite_scrap:
     post:
       operationId: actualite_scrap.scrappingActualiteAndSave
@@ -90,4 +90,57 @@ paths:
                 type: string
                 description: esv template description
     
-  #
+# mapDb
+
+  /mapDb/{longitude}/{latitude}/{mapdate}/{numeroTel}:
+    post:
+      operationId: mapDb.addMapDb
+      tags:
+        - mapDb
+      summary: Save  veda table
+      description: Save  veda table
+      parameters:
+        - name: longitude
+          in: path
+          description: codeoftable
+          type: string
+          required: True
+        - name: latitude
+          in: path
+          description: codeoftable
+          type: string
+          required: True
+        - name: mapdate
+          in: path
+          description: codeoftable
+          type: string
+          required: True
+        - name: numeroTel
+          in: path
+          description: codeoftable
+          type: string
+          required: True         
+      responses:
+        201:
+          description: Successfully created veda db
+          schema:
+            properties:
+              import_id:
+                type: string
+                description: Id of import
+
+  /mapDb/getmapDb:
+    get:
+      operationId: mapDb.getAllMapDb
+      tags:
+        - mapDb
+      summary: Get  covid stat
+      description: Get  covid stat
+      responses:
+        201:
+          description: Successfully to get esv template
+          schema:
+            properties:
+              templatedescription:
+                type: string
+                description: esv template description
