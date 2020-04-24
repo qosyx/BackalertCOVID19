@@ -92,42 +92,42 @@ paths:
     
 # mapDb
 
-  /mapDb/{longitude}/{latitude}/{mapdate}/{numeroTel}:
-    post:
-      operationId: mapDb.addMapDb
-      tags:
-        - mapDb
-      summary: Save  veda table
-      description: Save  veda table
-      parameters:
-        - name: longitude
-          in: path
-          description: codeoftable
-          type: string
-          required: True
-        - name: latitude
-          in: path
-          description: codeoftable
-          type: string
-          required: True
-        - name: mapdate
-          in: path
-          description: codeoftable
-          type: string
-          required: True
-        - name: numeroTel
-          in: path
-          description: codeoftable
-          type: string
-          required: True         
-      responses:
-        201:
-          description: Successfully created veda db
-          schema:
-            properties:
-              import_id:
-                type: string
-                description: Id of import
+  # /mapDb/{longitude}/{latitude}/{mapdate}/{numeroTel}:
+  #   post:
+  #     operationId: mapDb.addMapDb
+  #     tags:
+  #       - mapDb
+  #     summary: Save  veda table
+  #     description: Save  veda table
+  #     parameters:
+  #       - name: longitude
+  #         in: path
+  #         description: codeoftable
+  #         type: string
+  #         required: True
+  #       - name: latitude
+  #         in: path
+  #         description: codeoftable
+  #         type: string
+  #         required: True
+  #       - name: mapdate
+  #         in: path
+  #         description: codeoftable
+  #         type: string
+  #         required: True
+  #       - name: numeroTel
+  #         in: path
+  #         description: codeoftable
+  #         type: string
+  #         required: True         
+  #     responses:
+  #       201:
+  #         description: Successfully created veda db
+  #         schema:
+  #           properties:
+  #             import_id:
+  #               type: string
+  #               description: Id of import
 
   /mapDb/getmapDb:
     get:
@@ -144,3 +144,38 @@ paths:
               templatedescription:
                 type: string
                 description: esv template description
+
+  /mapDb/create:
+    post:
+      operationId: mapDb.addMapDb
+      tags:
+        - mapDb
+      summary: Create eUser
+      description: Create eUser
+      parameters:
+        - name: mapJson
+          in: body
+          description: eUser
+          schema:
+            type: object
+            properties:
+              longitude:
+                type: string
+                description: name of USer
+              latitude:
+                type: string
+                description: prenom of User
+              mapdate:
+                type: string
+                description: Mail of User
+              numeroTel:
+                type: string
+                description: Tel of User
+      responses:
+        201:
+          description: Successfully created veda db
+          schema:
+            properties:
+              import_id:
+                type: string
+                description: Id of import
