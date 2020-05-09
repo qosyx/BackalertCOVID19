@@ -17,8 +17,8 @@ def allTable():
 #Creation des tables 
 def createTable():
    
-    # db.query("DROP DATABASE IF EXISTS veda")
-    # db.query("create database veda")
+    # db.query("DROP DATABASE IF EXISTS acvidimsp")
+    # db.query("create database acvidimsp")
 
     # db.query("truncate TABLE  entete CASCADE")
      #mapDb
@@ -47,8 +47,8 @@ def createTable():
 #     myquery="drop table "+tablename
 #     db.query(myquery)
 if __name__ == '__main__':
-    pass
+    # pass
     # Charger tous les paramètres
     # parameters_path = sys.argv[1]
     # r=connexion.connect(parameters_path)
-    # createTable(r)
+    createTable()

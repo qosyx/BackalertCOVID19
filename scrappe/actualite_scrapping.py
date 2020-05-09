@@ -8,6 +8,8 @@ import pandas as pd
 import sqlite3
 import threading
 import os, sys
+from datetime import date, datetime, time
+from babel.dates import format_date, format_datetime, format_time
 from pg import DB
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'table'))
 import my_connexion as connexion
@@ -57,7 +59,7 @@ def scrappingActualiteAndSave():
         i = 0
         while (i<len(actualite_date)):
             print("Insertion de donnée ..........")
-            db.insert('tableactualite', actualite=str(echapper(actualite[i])),id_date= str(actualite_date[i]))            
+            db.insert('tableactualite', actualite=str(echapper(actualite[i])),id_date= str((findAndReplaceDate(actualite_date[i]))))            
             i = i+1
         #     print("Insertion de donnée ..........")
         #     # print("Insertion de donnée ..........")
@@ -79,7 +81,7 @@ def scrappingActualiteAndSave():
             taille = len(actualite_date)-taille+1
             while (taille<len(actualite_date) ):
                 print("Insertion de donnée à partir d'index.........."+ str(taille))
-                db.insert('tableactualite', actualite=str(echapper(actualite[taille])),id_date= str(actualite_date[taille]))            
+                db.insert('tableactualite', actualite=str(echapper(actualite[taille])),id_date= str(findAndReplaceDate(actualite_date[taille])))            
                 taille = taille +1     
     return actualite_date
 
@@ -87,17 +89,23 @@ def scrappingActualiteAndSave():
 
 def echapper(text):
     text=text.replace("'","''")
-    text=text.replace("ô","o")
     return text
 
-# def findAndReplaceDate():
-#     text=text.replace("Aujourd'hui","''")
+def findAndReplaceDate(text):
+    print("odk")
+    text=text.replace("Aujourd'hui",date())
+    return text
 
+def date():
+  today=datetime.now()
+  today=format_datetime(today,format='long', locale='fr_FR')
+  today=today.split("à")[0]
+  return today
 
 def getAllActualite():
     # print(getDbPath.getConnectPath())
     db=connexion.connect(getDbPath.getConnectPath())
-    result = []
+    result = [] 
     for r in db.query(  # just for example
             "SELECT tableactualiteid, actualite, id_date "
             "FROM tableactualite ORDER BY tableactualiteid asc"
