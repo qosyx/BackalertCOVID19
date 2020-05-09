@@ -169,7 +169,7 @@ paths:
       summary: Create eUser
       description: Create eUser
       parameters:
-        - name: mapJson
+        - name: data
           in: body
           description: eUser
           schema:
