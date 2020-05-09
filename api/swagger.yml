@@ -184,7 +184,7 @@ paths:
               mapdate:
                 type: string
                 description: Mail of User
-              numeroTel:
+              numerotel:
                 type: string
                 description: Tel of User
       responses:

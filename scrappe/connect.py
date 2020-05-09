@@ -128,10 +128,10 @@ def getOne():
 
 ################ add mapbb
 ### Add mapDb
-def addMapdb(longitude,latitude,mapdate,numeroTel):
+def addMapdb(longitude,latitude,mapdate,numerotel):
     db=connexion.connect(getDbPath.getConnectPath())
     db.insert('mapdb', longitude=longitude,latitude= latitude, 
-                  mapdate = mapdate,numeroTel = numeroTel)
+                  mapdate = mapdate,numerotel = numerotel)
 
 ### Read All MapDb
 def getAllMapdb():
