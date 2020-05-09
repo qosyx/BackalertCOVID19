@@ -8,7 +8,7 @@ import connect  as connect
 #     return "donnée enregistrée "
 
 def addMapDb(data):
-    result = connect.addMapdb(mapJson['longitude'],mapJson['latitude'],mapJson['mapdate'],mapJson['numeroTel'])
+    result = connect.addMapdb(data['longitude'],data['latitude'],data['mapdate'],data['numeroTel'])
     return "donnée enregistrée "
 
 def getAllMapDb():
