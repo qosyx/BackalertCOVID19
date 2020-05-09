@@ -1,173 +1,147 @@
-import sqlite3
 import threading
 import os, sys
+from pg import DB
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'table'))
+import my_connexion as connexion
+
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'common_utils'))
-import getDbPath as path
+import getDbPath as getDbPath
 
-def createConnexion():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    return c
+def read_all():
+    # print(getDbPath.getConnectPath())
+    db=connexion.connect(getDbPath.getConnectPath())
+    result = []
+    for r in db.query(  # just for example
+            "SELECT officielleid, mbrecasconfirme, mbregueris, mbresoustraitement,  mbremort "
+            "FROM officielle ORDER BY officielleid desc"
+            ).dictresult():
+            result.append(r)
+    return result
 
-def createTableMapDb():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    # Create mapDb
-    c.execute('''CREATE TABLE mapDb
-                (
-                longitude TEXT, 
-                latitude TEXT, 
-                mapdate TEXT, 
-                numeroTel TEXT)''')
-
-
-def createTablesOfficielle():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    # Create officielle
-    c.execute('''CREATE TABLE officielle
-                (
-                mbrecasconfirme INT, 
-                mbregueris INT, 
-                mbresoustraitement INT, 
-                mbremort INT)''')
-
-def createTablesActualite():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    # Create officielle
-    c.execute('''CREATE TABLE tableactualite
-                (actualite TEXT, 
-                id_date TEXT)''')
     
-def addOfficielle( mbrecasconfirme, mbregueris, mbremort,mbresoustraitement):
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute('SELECT  mbrecasconfirme, mbregueris, mbremort,mbresoustraitement,rowid from officielle ORDER BY rowid asc')
-    res = c.fetchone()
-    if (res == None):
+def addOfficielle( mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
+    db=connexion.connect(getDbPath.getConnectPath())
+    result = []
+    for r in db.query(  # just for example
+            "SELECT officielleid, mbrecasconfirme, mbregueris, mbresoustraitement,  mbremort "
+            "FROM officielle ORDER BY officielleid desc"
+            ).dictresult():
+            result.append(r)
+    res = result
+    if (res == []):
         print("Insertion de donnée ..........")
-        c.execute("INSERT INTO officielle (mbrecasconfirme,mbregueris,mbresoustraitement,mbremort) \
-    VALUES (" + str(mbrecasconfirme) +
-                  "," + str(mbregueris) + "," + str(mbresoustraitement) + "," + str(mbremort)+")")
+        db.insert('officielle', mbrecasconfirme=mbrecasconfirme,mbregueris= mbregueris, 
+                  mbresoustraitement = mbresoustraitement,mbremort = mbremort)
     else:
-        if((int(mbrecasconfirme) == int(res[0])) and (int(mbresoustraitement) == int(res[3]))
-            and (int(mbregueris) == int(res[1])) and (int(mbremort) == int(res[2])) 
-           ) :
-            # print(res)
+        if(int(res[0]['mbrecasconfirme'])==int(mbrecasconfirme) and
+            int(res[0]['mbregueris'])==int(mbregueris) and 
+            int(res[0]['mbresoustraitement'])==int(mbresoustraitement) and 
+            int(res[0]['mbremort'])==int(mbremort)
+            ):
             print("pas d'évolution des statistiques ")
         else:
+            print("Stat évoluées")
             print("Insertion de donnée ..........")
-
-            c.execute("INSERT INTO officielle (mbrecasconfirme,mbregueris,mbresoustraitement,mbremort) \
-    VALUES (" + str(mbrecasconfirme) +
-                "," + str(mbregueris) + "," + str(mbresoustraitement) + "," + str(mbremort)+")")
+            db.insert('officielle', mbrecasconfirme=mbrecasconfirme,mbregueris= mbregueris, 
+                    mbresoustraitement = mbresoustraitement,mbremort = mbremort)
 
 
-    conn.commit()
-
-
-def addActualite(actualite, id_date):
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute("INSERT INTO tableactualite  (actualite,id_date) \
-    VALUES ('" + str(actualite) +
+# def addActualite(actualite, id_date):
+#     conn = sqlite3.connect(
+#         path.getPath())
+#     c = conn.cursor()
+#     c.execute("INSERT INTO tableactualite  (actualite,id_date) \
+#     VALUES ('" + str(actualite) +
     
-                "' ,'" + str(id_date)+"')")
-    conn.commit()
+#                 "' ,'" + str(id_date)+"')")
+#     conn.commit()
 
 
 
-def addActualite2(actualite, id_date,taille):
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute('SELECT count(actualite) FROM tableactualite')
-    res = c.fetchone()
-    res = int(res[0])
-    # print(taille)
-    if (int(res) == 0):
-        i = 0
-        while (i<int(taille)):
-            print("Insertion de donnée ..........")
-            # print("Insertion de donnée ..........")
+# def addActualite2(actualite, id_date,taille):
+#     conn = sqlite3.connect(
+#         path.getPath())
+#     c = conn.cursor()
+#     c.execute('SELECT count(actualite) FROM tableactualite')
+#     res = c.fetchone()
+#     res = int(res[0])
+#     # print(taille)
+#     if (int(res) == 0):
+#         i = 0
+#         while (i<int(taille)):
+#             print("Insertion de donnée ..........")
+#             # print("Insertion de donnée ..........")
 
-            c.execute("INSERT INTO tableactualite  (actualite,id_date) \
-    VALUES ('" + str(actualite) +
+#             c.execute("INSERT INTO tableactualite  (actualite,id_date) \
+#     VALUES ('" + str(actualite) +
     
-                "' ,'" + str(id_date)+"')")
-            i = i +1
-    else: 
-        if(int(res)==int(taille)):
-            print("pas d'évolution des statistiques")
+#                 "' ,'" + str(id_date)+"')")
+#             i = i +1
+#     else: 
+#         if(int(res)==int(taille)):
+#             print("pas d'évolution des statistiques")
 
-        if(( int(res) < int(taille)) ): 
-            taille = taille -res
-            while (taille>0):
-                print("Insertion de donnée ..........")
-                c.execute("INSERT INTO tableactualite  (actualite,id_date) \
-        VALUES ('" + str(actualite) +
+#         if(( int(res) < int(taille)) ): 
+#             taille = taille -res
+#             while (taille>0):
+#                 print("Insertion de donnée ..........")
+#                 c.execute("INSERT INTO tableactualite  (actualite,id_date) \
+#         VALUES ('" + str(actualite) +
         
-                    "' ,'" + str(id_date)+"')")
-                taille = taille -1
-    conn.commit()
+#                     "' ,'" + str(id_date)+"')")
+#                 taille = taille -1
+#     conn.commit()
 
-def getCountActualite():
-    conn = sqlite3.connect(path.getPath())
-    c = conn.cursor()
-    c.execute('SELECT count(actualite) FROM tableactualite')
-    res = c.fetchone()
-    res = int(res[0])
-    return res
-def getAll():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute('SELECT  mbrecasconfirme, mbregueris, mbremort,mbresoustraitement,rowid from officielle ORDER BY rowid asc')
-    result = c.fetchall()
-    return result
+# def getCountActualite():
+#     conn = sqlite3.connect(path.getPath())
+#     c = conn.cursor()
+#     c.execute('SELECT count(actualite) FROM tableactualite')
+#     res = c.fetchone()
+#     res = int(res[0])
+#     return res
+# def getAll():
+#     conn = sqlite3.connect(
+#         path.getPath())
+#     c = conn.cursor()
+#     c.execute('SELECT  mbrecasconfirme, mbregueris, mbremort,mbresoustraitement,rowid from officielle ORDER BY rowid asc')
+#     result = c.fetchall()
+#     return result
 
 def getOne():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute('SELECT  mbrecasconfirme, mbregueris, mbremort,mbresoustraitement,rowid from officielle ORDER BY rowid desc')
-    result = c.fetchone()
+    db=connexion.connect(getDbPath.getConnectPath())
+    result = []
+    for r in db.query(  # just for example
+            "SELECT officielleid, mbrecasconfirme, mbregueris, mbresoustraitement,  mbremort "
+            "FROM officielle ORDER BY officielleid desc"
+            ).dictresult():
+            result.append(r)
     return result
 
-def getAllActualite():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute('SELECT actualite, id_date, rowid from tableactualite')
-    result = c.fetchall()
-    return result
+# def getAllActualite():
+#     conn = sqlite3.connect(
+#         path.getPath())
+#     c = conn.cursor()
+#     c.execute('SELECT actualite, id_date, rowid from tableactualite')
+#     result = c.fetchall()
+#     return result
 
 
 ################ add mapbb
 ### Add mapDb
 def addMapdb(longitude,latitude,mapdate,numeroTel):
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute("INSERT INTO mapDb  (longitude,latitude,mapdate,numeroTel) \
-    VALUES ('" + str(longitude) + "' ,'" + str(latitude)+"','" 
-    + str(mapdate)+"','" + str(numeroTel)+"')")
-    conn.commit()
+    db=connexion.connect(getDbPath.getConnectPath())
+    db.insert('mapdb', longitude=longitude,latitude= latitude, 
+                  mapdate = mapdate,numeroTel = numeroTel)
 
 ### Read All MapDb
 def getAllMapdb():
-    conn = sqlite3.connect(
-        path.getPath())
-    c = conn.cursor()
-    c.execute('SELECT longitude,latitude,mapdate,numeroTel, rowid from mapDb')
-    result = c.fetchall()
+    db=connexion.connect(getDbPath.getConnectPath())
+    result = []
+    for r in db.query(  # just for example
+            "SELECT mapdbid, longitude, latitude, mapdate, numerotel "
+            "FROM mapdb ORDER BY mapdbid desc"
+            ).dictresult():
+            result.append(r)
     return result
 
 
@@ -176,7 +150,7 @@ def getAllMapdb():
 if __name__ == "__main__":
     # createTablesActualite()
     # createTablesOfficielle() 
-    createTableMapDb()
+    addOfficielle(1,1,1,1)
     # print(type(getCountActualite()))   
 # addOfficielle(1,1,1,1,1)
 

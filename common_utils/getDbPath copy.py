@@ -5,6 +5,6 @@ path, filename = os.path.split(full_path)
 def getPath():
     dbpath = path+"/covid_base.db"
     return dbpath
-def getConnectPath():
+def getPath():
     Connectpath = path+"/connectParameters.json"
     return Connectpath
