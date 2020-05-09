@@ -1,0 +1,6 @@
+{
+    "dbuser":"archange",
+    "dbpass":"archange",
+    "dbserver":"127.0.0.1",
+    "dbname":"acvidimsp",
+    "dbport":5432}

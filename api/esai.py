@@ -9,6 +9,9 @@ import os, sys
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'common_utils'))
 import getDbPath as path
 
+# postgresql+pygresql://username:password@host:port/database
+
+
 def scrapperIntox():
     conn = sqlite3.connect(
         path.getPath())
