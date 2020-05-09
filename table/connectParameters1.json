@@ -1,7 +1,7 @@
 {
-    "dbuser":"postgres",
-    "dbpass":"3ef60227905c9dc4f8c753b9d46a0351",
-    "dbserver":"dokku-postgres-esvdatabase",
-    "dbname":"esvdatabase",
+    "dbuser":"archange",
+    "dbpass":"archange",
+    "dbserver":"127.0.0.1",
+    "dbname":"acvidimsp",
     "dbport":5432}
 
