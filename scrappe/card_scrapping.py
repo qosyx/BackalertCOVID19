@@ -11,23 +11,22 @@ def scrappingAndSave():
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find_all("h2", class_="h1 adapt white")
-    results2 = soup.find_all("h2", class_="h1 adapt white alt")
+    results = soup.find_all("h2", class_="h1 adapt white left-5")
+    results2 = soup.find_all("h2", class_="h1 adapt white regular")
     covid_stat = []
 
 
     for result in results:
-
+        # print(result)
         if None in (result):
             continue
         covid_stat.append(result.text.strip())
-
     for result in results2:
 
         if None in (result):
             continue
         covid_stat.append(result.text.strip())
-    
+    print(covid_stat)
     connect.addOfficielle(int(covid_stat[0]),covid_stat[1],covid_stat[3],covid_stat[2])
     return covid_stat
     # connect.getAll()
