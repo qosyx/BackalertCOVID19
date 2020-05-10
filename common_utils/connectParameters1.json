@@ -1,10 +1,6 @@
-
-
-
-
-    {
-        "dbuser":"postgres",
-        "dbpass":"0bad718660f681e2fca791e2a2173423",
-        "dbserver":"dokku-postgres-acvidimsp",
-        "dbname":"acvidimsp",
-        "dbport":5432}
+{
+    "dbuser":"postgres",
+    "dbpass":"0bad718660f681e2fca791e2a2173423",
+    "dbserver":"dokku-postgres-acvidimsp",
+    "dbname":"acvidimsp",
+    "dbport":5432}
