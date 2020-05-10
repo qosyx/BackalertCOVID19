@@ -113,7 +113,7 @@ def getAllActualite():
             result.append(r)
     return result
 if __name__ == "__main__":
-    # scrappingActualiteAndSave()
+    scrappingActualiteAndSave()
     print(getAllActualite())
     # print(getOne())
     # r = "L'hôpital de zone d'Allada transformé en centre de traitement et de prise en charge du Covid-19."
