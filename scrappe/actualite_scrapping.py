@@ -40,13 +40,13 @@ def scrappingActualiteAndSave():
         if None in (result):
             continue
         actualite.append(result.text.strip())
-
     
     for result in results_day:
 
         if None in (result):
             continue
         actualite_date.append(result.text.strip().split("\n")[0])
+    #print(actualite_date)
 
 
 
@@ -54,7 +54,8 @@ def scrappingActualiteAndSave():
     result = []
     r=db.query("SELECT count(actualite) FROM tableactualite").dictresult()
     res = int(r[0]['count'])
-    print(len(actualite_date))
+    #print(actualite)
+    # print((actualite_date))
     if (res == 0):
         i = 0
         while (i<len(actualite_date)):
@@ -73,16 +74,16 @@ def scrappingActualiteAndSave():
     else: 
         if(int(res)==len(actualite_date)):
             print("pas d'évolution des informations")
-        # print(actualite_date)
+        #print(actualite_date)
         if(int(res) < len(actualite_date) ): 
             taille = len(actualite_date) 
             taille = taille -int(res)
             print(taille)
-            taille = len(actualite_date)-taille+1
-            while (taille<len(actualite_date) ):
-                print("Insertion de donnée à partir d'index.........."+ str(taille))
-                db.insert('tableactualite', actualite=str(echapper(actualite[taille])),id_date= str(findAndReplaceDate(actualite_date[taille])))            
-                taille = taille +1     
+            i = 0
+            while (i<taille ):
+                print("Insertion de donnée à partir d'index.........."+ str(i))
+                db.insert('tableactualite', actualite=str(echapper(actualite[i])),id_date= str(findAndReplaceDate(actualite_date[i])))            
+                i = i +1     
     return actualite_date
 
 
@@ -114,7 +115,7 @@ def getAllActualite():
     return result
 if __name__ == "__main__":
     scrappingActualiteAndSave()
-    print(getAllActualite())
+    #print(getAllActualite())
     # print(getOne())
     # r = "L'hôpital de zone d'Allada transformé en centre de traitement et de prise en charge du Covid-19."
     # print(echapper(r))
