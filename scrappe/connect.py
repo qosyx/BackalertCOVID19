@@ -30,8 +30,8 @@ def addOfficielle( mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
     res = result
     if (res == []):
         print("Insertion de donnée ..........")
-        db.insert('officielle', mbrecasconfirme=mbrecasconfirme,mbregueris= mbregueris, 
-                  mbresoustraitement = mbresoustraitement,mbremort = mbremort)
+        db.insert('officielle', mbrecasconfirme=mbrecasconfirme,mbregueris= mbregueris,
+                  mbresoustraitement = mbresoustraitement, mbremort = mbremort)
     else:
         if(int(res[0]['mbrecasconfirme'])==int(mbrecasconfirme) and
             int(res[0]['mbregueris'])==int(mbregueris) and 
@@ -42,8 +42,8 @@ def addOfficielle( mbrecasconfirme, mbregueris, mbresoustraitement, mbremort):
         else:
             print("Stat évoluées")
             print("Insertion de donnée ..........")
-            db.insert('officielle', mbrecasconfirme=mbrecasconfirme,mbregueris= mbregueris, 
-                    mbresoustraitement = mbresoustraitement,mbremort = mbremort)
+            db.insert('officielle', mbrecasconfirme=mbrecasconfirme,mbregueris= mbregueris,
+                  mbresoustraitement = mbresoustraitement, mbremort = mbremort)
 
 
 # def addActualite(actualite, id_date):
