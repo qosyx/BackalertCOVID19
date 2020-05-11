@@ -27,7 +27,8 @@ def scrappingAndSave():
             continue
         covid_stat.append(result.text.strip())
     print(covid_stat)
-    connect.addOfficielle(int(covid_stat[0]),covid_stat[1],covid_stat[2],covid_stat[3])
+
+    connect.addOfficielle(int(covid_stat[0]),int(covid_stat[2]),int(covid_stat[1]),int(covid_stat[3]))
     return covid_stat
     # connect.getAll()
     # print(covid_stat)
