@@ -138,8 +138,9 @@ def getAllMapdb():
     db=connexion.connect(getDbPath.getConnectPath())
     result = []
     for r in db.query(  # just for example
-            "SELECT mapdbid, longitude, latitude, mapdate, numerotel "
+            "SELECT mapdbid, longitude, latitude, mapdate, numerotel, traite "
             "FROM mapdb ORDER BY mapdbid desc"
+            "where traite='f'"
             ).dictresult():
             result.append(r)
     return result
