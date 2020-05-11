@@ -139,7 +139,7 @@ def getAllMapdb():
     result = []
     for r in db.query(  # just for example
             "SELECT mapdbid, longitude, latitude, mapdate, numerotel, traite "
-            "FROM mapdb ORDER BY mapdbid desc"
+            "FROM mapdb ORDER BY mapdbid desc "
             "where traite='f'"
             ).dictresult():
             result.append(r)
